@@ -178,6 +178,7 @@ function Timer({ seconds }: { seconds: number }) { const m = Math.floor(seconds 
 
 function WrittenSection({ section, seconds, onSubmit }: { section: number; seconds: number; onSubmit: () => void }) {
   const content = prompts[section]; const [choice, setChoice] = useState("");
+  if (!content) return null;
   return <form className="glass-panel mt-6 rounded-3xl p-6 sm:p-8" onSubmit={(e) => { e.preventDefault(); onSubmit(); }}>
     <div className="flex items-start justify-between gap-4"><div><p className="text-xs font-semibold uppercase text-primary">Section {section + 1}</p><h1 className="mt-1 font-display text-2xl font-bold sm:text-3xl">{sections[section]}</h1></div><Timer seconds={seconds} /></div>
     <div className="mt-8 space-y-7">{content.open.map((question, index) => <Field key={question} label={`Q${index + 1} · Open-ended`}><span className="font-normal leading-6 text-muted-foreground">{question}</span><Textarea required maxLength={800} placeholder="Type your response…" className="mt-1 min-h-32 resize-none rounded-2xl bg-surface-strong p-4" /></Field>)}
